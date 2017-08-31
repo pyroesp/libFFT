@@ -50,7 +50,10 @@ The functions are divided in two groups:
 ```C
 	void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed);
 	void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_t *pbutterflies);
+
 	void fft_ComplexToMagnPhase(Complex *pdata_complex, FFT *pspectrum, uint8_t normalize);
+	OR
+	void fft_ComplexTodB(Complex *pdata_complex, FFT *pspectrum);	
 ```
 
 ## License
