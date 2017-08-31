@@ -17,6 +17,7 @@ The library should be cross-platform compatible.
 
 There are 3 defines you need to change, to modify the number of FFT points:
 
+```C
 	/* N */
 	#define FFT_POINT 512
 
@@ -25,6 +26,7 @@ There are 3 defines you need to change, to modify the number of FFT points:
 
 	/* log(N)/log(2) */
 	#define FFT_STAGES 9
+```
 
 For a 1024 point FFT you have to change the values to 1024, 512, 10, respectively.
 
@@ -36,17 +38,20 @@ The functions are divided in two groups:
 
 * Functions to execute only once:
 
-	void fft_BlockPerStage(uint16_t \*pblocks);
-	void fft_ButterfliesPerBlocks(uint16_t \*pbutterflies);
-	void fft_BitReversedLUT(uint16_t \*pbit_reversed);
-	void fft_TwiddleFactor(Complex \*pW);
+```C
+	void fft_BlockPerStage(uint16_t *pblocks);
+	void fft_ButterfliesPerBlocks(uint16_t *pbutterflies);
+	void fft_BitReversedLUT(uint16_t *pbit_reversed);
+	void fft_TwiddleFactor(Complex *pW);
+```
 
 * Functions to execute continuously before and after each FFT computation:
 
-	void fft_DataToComplex(float \*px, Complex \*pdata_complex, uint16_t \*pbit_reversed);
-	void fft_Compute(Complex \*pdata_complex, Complex \*pW, uint16_t \*pblocks, uint16_t \*pbutterflies);
-	void fft_ComplexToAmpPhase(Complex \*pdata_complex, FFT \*pspectrum);
-	
+```C
+	void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed);
+	void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_t *pbutterflies);
+	void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum);
+```
 
 ## License
 
