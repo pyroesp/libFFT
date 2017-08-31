@@ -1,27 +1,61 @@
-Fast Fourrier Transform
-=======================
+# Fast Fourier Transformation
 
-Radix-2 FFT library
-	by pyroesp
 
-This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+This is my Radix-2 FFT library, which was first developped for an embedded system consisting of a Texas Instrument ARM Cortex-M0 with a 128x96 OLED display.
 
-There are 3 defines you need to change, to change the number of FFT points:
+It is based on the schematic representation of a Radix-2 FFT:
+<table>
+	<tr>
+		<td>
+			<img src="http://www.nicolaselectronics.be/wp-content/uploads/2013/06/FFT.gif">
+		</td>
+	</tr>
+<table>
 
-/* N */
-#define FFT_POINT 512
+## Dependencies:
 
-/* N/2 */
-#define FFT_POINT_2 256
+* Only std includes used
 
-/* log(N)/log(2) */
-#define FFT_STAGES 9
+The library should be cross-platform compatible.
 
+## How to change number of FFT points
+
+There are 3 defines you need to change, to modify the number of FFT points:
+
+	/* N */
+	#define FFT_POINT 512
+
+	/* N/2 */
+	#define FFT_POINT_2 256
+
+	/* log(N)/log(2) */
+	#define FFT_STAGES 9
 
 For a 1024 point FFT you have to change the values to 1024, 512, 10, respectively.
 
+**Note:** The library (and Radix-2 fft) has been made in such a way that the FFT point value is expected to be a value of 2^X. If you try a different value, it is highly likely that it will not work as intended or not work at all.
 
-Some functions should be used only once for initializing the FFT. See the header file comments for more info.
+## Library functions:
+
+The functions are divided in two groups:
+
+* Functions to execute only once:
+
+	void fft_BlockPerStage(uint16_t *pblocks);
+	void fft_ButterfliesPerBlocks(uint16_t *pbutterflies);
+	void fft_BitReversedLUT(uint16_t *pbit_reversed);
+	void fft_TwiddleFactor(Complex *pW);
+
+* Functions to execute continuously before and after each FFT computation:
+
+	void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed);
+	void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_t *pbutterflies);
+	void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum);
+
+## License
+
+Creative Commons Attribution-ShareAlike 4.0 International, see LICENSE.md.
+
 
 This library was first developped for an embedded system consisting of a Texas Instrument ARM microcontroller.
 The library only uses standard includes, so it's cross-platform compatible.
