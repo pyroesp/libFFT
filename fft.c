@@ -1,13 +1,3 @@
-/*
-	Radix-2 FFT library
-	    by pyroesp
- 
-	31/08/2017
-
-	This work is licensed under a Creative Commons 
-	Attribution-ShareAlike 4.0 International License.
-*/
-
 #include "fft.h"
 
 /*
@@ -194,6 +184,32 @@ void fft_ComplexToMagnPhase(Complex *pdata_complex, FFT *pspectrum, uint8_t norm
 			pspectrum[ i ].mag = sqrtf(real_sq + imag_sq);
 		else
 			pspectrum[ i ].mag = sqrtf(real_sq + imag_sq) / (float)FFT_POINT_2;
+
+		#ifdef FFT_PHASE_USE
+			if (pdata_complex[ i ].im != 0)
+				pspectrum[ i ].phase = atanf(pdata_complex[ i ].re/pdata_complex[ i ].im) * RAD_TO_DEGREE;
+			else
+				pspectrum[ i ].phase = 0;
+		#endif
+	}
+}
+
+/* 
+ * Convert real & imaginary to a dB amplitude 
+ * Complex to polar + normalize + 20 * log(...)
+ */
+void fft_ComplexTodB(Complex *pdata_complex, FFT *pspectrum){
+	uint16_t i;
+	float real_sq = 0;
+	float imag_sq = 0;
+
+	for (i = 0; i < FFT_POINT_2; ++i){
+		real_sq = pdata_complex[ i ].re * pdata_complex[ i ].re;
+		imag_sq = pdata_complex[ i ].im * pdata_complex[ i ].im;
+
+		pspectrum[ i ].mag = sqrtf(real_sq + imag_sq) / (float)FFT_POINT_2;
+
+		pspectrum[ i ].dB = 20.0 * log10(pspectrum[ i ].mag);
 
 		#ifdef FFT_PHASE_USE
 			if (pdata_complex[ i ].im != 0)

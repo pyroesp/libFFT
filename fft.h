@@ -1,13 +1,3 @@
-/*
-	Radix-2 FFT library
-	    by pyroesp
- 
-	31/08/2017
-
-	This work is licensed under a Creative Commons 
-	Attribution-ShareAlike 4.0 International License.
-*/
-
 #ifndef FFT_H_INCLUDED
 #define FFT_H_INCLUDED
 
@@ -38,14 +28,15 @@
 
 /* Complex structure */
 typedef struct{
-    float re;
-    float im;
+	float re;
+	float im;
 }Complex;
 
 /* FFT structure */
 typedef struct{
-    float mag;
-    float phase;
+	float dB;
+	float mag;
+	float phase;
 }FFT;
 
 /** Use once at start of program **/
@@ -56,7 +47,7 @@ typedef struct{
 void fft_BlockPerStage(uint16_t *pblocks);
 /*
  * Butterflies per block per stage
- *     2^(stage-1)
+ *	 2^(stage-1)
  */
 void fft_ButterfliesPerBlocks(uint16_t *pbutterflies);
 /* Bit Reversed LUT calculation */
@@ -78,4 +69,10 @@ void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_
  */
 void fft_ComplexToMagnPhase(Complex *pdata_complex, FFT *pspectrum, uint8_t normalize);
 
+/* 
+ * Convert real & imaginary to a dB amplitude 
+ * Complex to polar + normalize + 20 * log(...)
+ */
+void fft_ComplexTodB(Complex *pdata_complex, FFT *pspectrum);
+	
 #endif
