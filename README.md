@@ -4,13 +4,8 @@
 This is my Radix-2 FFT library, which was first developped for an embedded system consisting of a Texas Instrument ARM Cortex-M0 with a 128x96 OLED display.
 
 It is based on the schematic representation of a Radix-2 FFT:
-<table>
-	<tr>
-		<td>
-			<img src="http://www.nicolaselectronics.be/wp-content/uploads/2013/06/FFT.gif">
-		</td>
-	</tr>
-<table>
+
+<img src="http://www.nicolaselectronics.be/wp-content/uploads/2013/06/FFT.gif">
 
 ## Dependencies:
 
@@ -41,19 +36,16 @@ The functions are divided in two groups:
 
 * Functions to execute only once:
 
-	
-	void fft_BlockPerStage(uint16_t *pblocks);
-	void fft_ButterfliesPerBlocks(uint16_t *pbutterflies);
-	void fft_BitReversedLUT(uint16_t *pbit_reversed);
-	void fft_TwiddleFactor(Complex *pW);
-	
+	void fft_BlockPerStage(uint16_t \*pblocks);
+	void fft_ButterfliesPerBlocks(uint16_t \*pbutterflies);
+	void fft_BitReversedLUT(uint16_t \*pbit_reversed);
+	void fft_TwiddleFactor(Complex \*pW);
 
 * Functions to execute continuously before and after each FFT computation:
 
-	
-	void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed);
-	void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_t *pbutterflies);
-	void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum);
+	void fft_DataToComplex(float \*px, Complex \*pdata_complex, uint16_t \*pbit_reversed);
+	void fft_Compute(Complex \*pdata_complex, Complex \*pW, uint16_t \*pblocks, uint16_t \*pbutterflies);
+	void fft_ComplexToAmpPhase(Complex \*pdata_complex, FFT \*pspectrum);
 	
 
 ## License
