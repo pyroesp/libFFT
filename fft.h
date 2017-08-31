@@ -44,7 +44,7 @@ typedef struct{
 
 /* FFT structure */
 typedef struct{
-    float amp;
+    float mag;
     float phase;
 }FFT;
 
@@ -72,7 +72,10 @@ void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reverse
 /* Compute FFT algorithm */
 void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_t *pbutterflies);
 
-/* Convert real & imaginary to amplitude & phase */
-void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum);
+/*
+ * Convert real & imaginary to magnitude & phase 
+ * Normalize the magnitude if normalize is not NULL
+ */
+void fft_ComplexToMagnPhase(Complex *pdata_complex, FFT *pspectrum, uint8_t normalize);
 
 #endif

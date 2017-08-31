@@ -177,8 +177,11 @@ void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_
 	}
 }
 
-/* Convert real & imaginary to amplitude & phase */
-void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum){
+/* 
+ * Convert real & imaginary to maglitude & phase 
+ * Normalize magnitude if normalize is not NULL
+ */
+void fft_ComplexToMagnPhase(Complex *pdata_complex, FFT *pspectrum, uint8_t normalize){
 	uint16_t i;
 	float real_sq = 0;
 	float imag_sq = 0;
@@ -187,7 +190,10 @@ void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum){
 		real_sq = pdata_complex[ i ].re * pdata_complex[ i ].re;
 		imag_sq = pdata_complex[ i ].im * pdata_complex[ i ].im;
 
-		pspectrum[ i ].amp = sqrtf(real_sq + imag_sq);
+		if (!normalize)
+			pspectrum[ i ].mag = sqrtf(real_sq + imag_sq);
+		else
+			pspectrum[ i ].mag = sqrtf(real_sq + imag_sq) / (float)FFT_POINT_2;
 
 		#ifdef FFT_PHASE_USE
 			if (pdata_complex[ i ].im != 0)
