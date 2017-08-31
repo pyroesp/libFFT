@@ -42,14 +42,19 @@ The functions are divided in two groups:
 * Functions to execute only once:
 
 	void fft_BlockPerStage(uint16_t *pblocks);
+
 	void fft_ButterfliesPerBlocks(uint16_t *pbutterflies);
+
 	void fft_BitReversedLUT(uint16_t *pbit_reversed);
+
 	void fft_TwiddleFactor(Complex *pW);
 
 * Functions to execute continuously before and after each FFT computation:
 
 	void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed);
+
 	void fft_Compute(Complex *pdata_complex, Complex *pW, uint16_t *pblocks, uint16_t *pbutterflies);
+
 	void fft_ComplexToAmpPhase(Complex *pdata_complex, FFT *pspectrum);
 
 ## License
