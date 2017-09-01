@@ -101,7 +101,7 @@ void fft_Window(uint8_t type, float *pWin){
 			a1 = 1.93;
 			a2 = 1.29;
 			a3 = 0.388;
-			a4 = 0.028
+			a4 = 0.028;
 			for (i = 0; i < FFT_POINT; i++){
 				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1)) + a4 * cos((8 * M_PI * i) / (float)(FFT_POINT - 1));
 			}
