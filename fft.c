@@ -109,7 +109,7 @@ void fft_Window(uint8_t type, float *pWin){
 		case FFT_WIN_RECTANGLE:
 		default:
 			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = 0;
+				pWin[ i ] = 1.0;
 			}
 			break;
 	}
