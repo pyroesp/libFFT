@@ -56,12 +56,69 @@ void fft_TwiddleFactor(Complex *pW){
 	}
 }
 
-/* Convert x(n) array to a bit reversed complex array*/
-void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed){
+/* Calculate Window */
+void fft_Window(uint8_t type, float *pWin){
+	uint16_t i;
+
+	switch (type){
+		case FFT_WIN_TRIANGLE:
+			for (i = 0; i < FFT_POINT_2; ++i){
+				pWin[ i ] = (float)i/(float)FFT_POINT_2;
+				pWin[ FFT_POINT - 1 - i ] = pWin[ i ];
+			}
+			break;
+		case FFT_WIN_HANNING:
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = 0.5 * (1.0 - cos(( 2 * M_PI * i) / (float)(FFT_POINT - 1));
+			}
+			break;
+		case FFT_WIN_HAMMING:
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = 0.54 - 0.46 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1));
+			}
+			break;
+		case FFT_WIN_BLACKMAN:
+			float a0 = 0.42659;
+			float a1 = 0.49656;
+			float a2 = 0.076849;
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1));
+			}
+			break;
+		case FFT_WIN_NUTTAL:
+			float a0 = 0.355768;
+			float a1 = 0.487396;
+			float a2 = 0.144232;
+			float a3 = 0.012604;
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1));
+			}
+			break;
+		case FFT_WIN_FLAT_TOP:
+			float a0 = 1;
+			float a1 = 1.93;
+			float a2 = 1.29;
+			float a3 = 0.388;
+			float a4 = 0.028
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1)) + a4 * cos((8 * M_PI * i) / (float)(FFT_POINT - 1));
+			}
+			break;
+		case FFT_WIN_RECTANGLE:
+		default:
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = 0;
+			}
+			break;
+	}
+}
+
+/* Multiply x(n) by window convert to a bit reversed complex array*/
+void fft_DataToComplex(float *px, float *pWin, Complex *pdata_complex, uint16_t *pbit_reversed){
 	uint16_t i;
 
 	for (i = 0; i < FFT_POINT; ++i){
-		pdata_complex[ i ].re = px[ *pbit_reversed ];
+		pdata_complex[ i ].re = px[ *pbit_reversed ] * pWin[ *pbit_reversed ];
 		pdata_complex[ i ].im = 0;
 
 		++pbit_reversed;

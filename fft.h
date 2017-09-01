@@ -12,11 +12,10 @@
 /* log(N)/log(2) */
 #define FFT_STAGES 9
 
-/*
+/**************
  * Uncomment to calculate phase
  * #define FFT_PHASE_USE
- *
- */
+ **************/
 
 #ifdef FFT_PHASE_USE
 	/*
@@ -25,6 +24,15 @@
 	 */
 	#define RAD_TO_DEGREE 57.2957795130823208768
 #endif
+
+/* Types of window */
+#define FFT_WIN_RECTANGLE 0
+#define FFT_WIN_TRIANGLE 1
+#define FFT_WIN_HANNING 2
+#define FFT_WIN_HAMMING 3
+#define FFT_WIN_BLACKMAN 4
+#define FFT_WIN_NUTTALL 5
+#define FFT_WIN_FLAT_TOP 6
 
 /* Complex structure */
 typedef struct{
@@ -54,10 +62,12 @@ void fft_ButterfliesPerBlocks(uint16_t *pbutterflies);
 void fft_BitReversedLUT(uint16_t *pbit_reversed);
 /* Calculate twiddle factor */
 void fft_TwiddleFactor(Complex *pW);
+/* Calculate window */
+void fft_Window(uint8_t type, float *pWin);
 
 /** Use before each FFT **/
-/* Convert x(n) array to a bit reversed complex array*/
-void fft_DataToComplex(float *px, Complex *pdata_complex, uint16_t *pbit_reversed);
+/* Multiply x(n) by window and convert to a bit reversed complex array */
+void fft_DataToComplex(float *px, float *pWin, Complex *pdata_complex, uint16_t *pbit_reversed);
 
 /** FFT funtcion **/
 /* Compute FFT algorithm */
