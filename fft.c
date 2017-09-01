@@ -59,6 +59,8 @@ void fft_TwiddleFactor(Complex *pW){
 /* Calculate Window */
 void fft_Window(uint8_t type, float *pWin){
 	uint16_t i;
+	float a0, a1, a2, a3, a4;
+
 
 	switch (type){
 		case FFT_WIN_TRIANGLE:
@@ -78,28 +80,28 @@ void fft_Window(uint8_t type, float *pWin){
 			}
 			break;
 		case FFT_WIN_BLACKMAN:
-			float a0 = 0.42659;
-			float a1 = 0.49656;
-			float a2 = 0.076849;
+			a0 = 0.42659;
+			a1 = 0.49656;
+			a2 = 0.076849;
 			for (i = 0; i < FFT_POINT; i++){
 				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1));
 			}
 			break;
 		case FFT_WIN_NUTTALL:
-			float a0 = 0.355768;
-			float a1 = 0.487396;
-			float a2 = 0.144232;
-			float a3 = 0.012604;
+			a0 = 0.355768;
+			a1 = 0.487396;
+			a2 = 0.144232;
+			a3 = 0.012604;
 			for (i = 0; i < FFT_POINT; i++){
 				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1));
 			}
 			break;
 		case FFT_WIN_FLAT_TOP:
-			float a0 = 1;
-			float a1 = 1.93;
-			float a2 = 1.29;
-			float a3 = 0.388;
-			float a4 = 0.028
+			a0 = 1;
+			a1 = 1.93;
+			a2 = 1.29;
+			a3 = 0.388;
+			a4 = 0.028
 			for (i = 0; i < FFT_POINT; i++){
 				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1)) + a4 * cos((8 * M_PI * i) / (float)(FFT_POINT - 1));
 			}
