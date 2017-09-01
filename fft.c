@@ -69,7 +69,7 @@ void fft_Window(uint8_t type, float *pWin){
 			break;
 		case FFT_WIN_HANNING:
 			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = 0.5 * (1.0 - cos(( 2 * M_PI * i) / (float)(FFT_POINT - 1));
+				pWin[ i ] = 0.5 * (1.0 - cos(( 2 * M_PI * i) / (float)(FFT_POINT - 1)));
 			}
 			break;
 		case FFT_WIN_HAMMING:
@@ -85,7 +85,7 @@ void fft_Window(uint8_t type, float *pWin){
 				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1));
 			}
 			break;
-		case FFT_WIN_NUTTAL:
+		case FFT_WIN_NUTTALL:
 			float a0 = 0.355768;
 			float a1 = 0.487396;
 			float a2 = 0.144232;
