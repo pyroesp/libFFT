@@ -13,6 +13,27 @@ It is based on the schematic representation of a Radix-2 FFT:
 
 The library should be cross-platform compatible.
 
+## How to change number of FFT points
+
+There are 3 defines you need to add **before** the include of fft.h, to modify the number of FFT points:
+
+```C
+	/* DEFAULT VALUES */
+	/* N */
+	#define FFT_POINT 512
+
+	/* N/2 */
+	#define FFT_POINT_2 256
+
+	/* log(N)/log(2) */
+	#define FFT_STAGES 9
+```
+
+For a 1024 point FFT you have to set the defines to 1024, 512, 10, respectively.
+
+**Note:** The library (and Radix-2 fft) has been made in such a way that the FFT point value is expected to be a value of 2^X. If you try a different value, it is highly likely that it will not work as intended or not work at all.
+
+
 ## Library functions:
 
 The functions are divided in two groups:
@@ -37,26 +58,6 @@ The functions are divided in two groups:
 	OR
 	void fft_ComplexTodB(Complex *pdata_complex, FFT *pspectrum);	
 ```
-
-## How to change number of FFT points
-
-There are 3 defines you need to change, to modify the number of FFT points:
-
-```C
-	/* N */
-	#define FFT_POINT 512
-
-	/* N/2 */
-	#define FFT_POINT_2 256
-
-	/* log(N)/log(2) */
-	#define FFT_STAGES 9
-```
-
-For a 1024 point FFT you have to change the values to 1024, 512, 10, respectively.
-
-**Note:** The library (and Radix-2 fft) has been made in such a way that the FFT point value is expected to be a value of 2^X. If you try a different value, it is highly likely that it will not work as intended or not work at all.
-
 ## How to calculate the phase:
 
 For this you'll have to uncomment a define in fft.h.
