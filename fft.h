@@ -5,13 +5,18 @@
 /* math lib */
 #include <math.h>
 
-/* N */
-#define FFT_POINT 512
-/* N/2 */
-#define FFT_POINT_2 256
-/* log(N)/log(2) */
-#define FFT_STAGES 9
-
+#ifndef FFT_POINT
+	/* N */
+	#define FFT_POINT 512
+#endif
+#ifndef FFT_POINT_2
+	/* N/2 */
+	#define FFT_POINT_2 256
+#endif
+#ifndef FFT_STAGES
+	/* log(N)/log(2) */
+	#define FFT_STAGES 9
+#endif
 /**************
  * Uncomment to calculate phase
  * #define FFT_PHASE_USE
