@@ -15,24 +15,29 @@ The library should be cross-platform compatible.
 
 ## How to change number of FFT points
 
-There are 3 defines you need to add **before** the include of fft.h, to modify the number of FFT points:
+There are 3 defines that control the FFT. These have a default value you can see below.
+
+If you want to change this, you'll have to define them in your Makefile or CMakeLists. With cmake, add the defines like so : "**add_definitions(-DFFT_POINT=1024)**"
 
 ```C
 	/* DEFAULT VALUES */
-	/* N */
-	#define FFT_POINT 512
-
-	/* N/2 */
-	#define FFT_POINT_2 256
-
-	/* log(N)/log(2) */
-	#define FFT_STAGES 9
+	#ifndef FFT_POINT
+		/* N */
+		#define FFT_POINT 512
+	#endif
+	#ifndef FFT_POINT_2
+		/* N/2 */
+		#define FFT_POINT_2 256
+	#endif
+	#ifndef FFT_STAGES
+		/* log(N)/log(2) */
+		#define FFT_STAGES 9
+	#endif
 ```
 
 For a 1024 point FFT you have to set the defines to 1024, 512, 10, respectively.
 
 **Note:** The library (and Radix-2 fft) has been made in such a way that the FFT point value is expected to be a value of 2^X. If you try a different value, it is highly likely that it will not work as intended or not work at all.
-
 
 ## Library functions:
 
