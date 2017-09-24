@@ -98,7 +98,3 @@ If you don't know what this is go to [this wikipedia page](https://en.wikipedia.
 ## License
 
 Creative Commons Attribution-ShareAlike 4.0 International, see LICENSE.md.
-
-
-This library was first developped for an embedded system consisting of a Texas Instrument ARM microcontroller.
-The library only uses standard includes, so it's cross-platform compatible.
