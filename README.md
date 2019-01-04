@@ -7,6 +7,7 @@ Since then, I've used it on in a homebrew for the PSVita made by Sony. You can f
 It is based on the schematic representation of a Radix-2 FFT:
 
 <img src="./fft3.png">
+*source for image : https://hkn.illinois.edu/wiki/wiki:signal_processing:fft
 
 ## Dependencies:
 
