@@ -2,10 +2,11 @@
 
 
 This is my Radix-2 FFT library, which was first developped for an embedded system consisting of a Texas Instrument ARM Cortex-M0 with a 128x96 OLED display.
+Since then, I've used it on in a homebrew for the PSVita made by Sony. You can find the source for the homebrew in my repositories.
 
 It is based on the schematic representation of a Radix-2 FFT:
 
-<img src="http://www.nicolaselectronics.be/wp-content/uploads/2013/06/FFT.gif">
+<img src="./fft3.png">
 
 ## Dependencies:
 
@@ -37,13 +38,13 @@ If you want to change this, you'll have to define them in your Makefile or CMake
 
 For a 1024 point FFT you have to set the defines to 1024, 512, 10, respectively.
 
-**Note:** The library (and Radix-2 fft) has been made in such a way that the FFT point value is expected to be a value of 2^X. If you try a different value, it is highly likely that it will not work as intended or not work at all.
+**Note:** The library (and Radix-2 fft) has been made in such a way that the FFT point value is expected to be a value of 2^X. If you try a different value, it is highly likely that it will not work as intended and crash or not work at all.
 
 ## Library functions:
 
 The functions are divided in two groups:
 
-* Functions to execute only once:
+* Functions to execute before the main FFT loop and only once:
 
 ```C
 	void fft_BlockPerStage(uint16_t *pblocks);
