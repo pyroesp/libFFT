@@ -61,49 +61,53 @@ void fft_Window(uint8_t type, float *pWin){
 	uint16_t i;
 	float a0, a1, a2, a3, a4;
 
-
 	switch (type){
+		case FFT_WIN_HANNING:
+		case FFT_WIN_HAMMING:
+		case FFT_WIN_BLACKMAN:
+		case FFT_WIN_NUTTALL:
+		case FFT_WIN_FLAT_TOP:
+			a0 = 0;
+			a1 = 0;
+			a2 = 0;
+			a3 = 0;
+			a4 = 0;
+			switch(type){
+				case FFT_WIN_HANNING:
+					a0 = 0.5;
+					a1 = 0.5;
+					break;
+				case FFT_WIN_HAMMING:
+					a0 = 0.54;
+					a1 = 0.46;
+					break;
+				case FFT_WIN_BLACKMAN:
+					a0 = 0.42659;
+					a1 = 0.49656;
+					a2 = 0.076849;
+					break;
+				case FFT_WIN_NUTTALL:
+					a0 = 0.355768;
+					a1 = 0.487396;
+					a2 = 0.144232;
+					a3 = 0.012604;
+					break;
+				case FFT_WIN_FLAT_TOP:
+					a0 = 1;
+					a1 = 1.93;
+					a2 = 1.29;
+					a3 = 0.388;
+					a4 = 0.028;
+					break;
+			}
+			for (i = 0; i < FFT_POINT; i++){
+				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 * cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1)) + a4 * cos((8 * M_PI * i) / (float)(FFT_POINT - 1));
+			}
+			break;
 		case FFT_WIN_TRIANGLE:
 			for (i = 0; i < FFT_POINT_2; ++i){
 				pWin[ i ] = (float)i/(float)FFT_POINT_2;
 				pWin[ FFT_POINT - 1 - i ] = pWin[ i ];
-			}
-			break;
-		case FFT_WIN_HANNING:
-			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = 0.5 * (1.0 - cos(( 2 * M_PI * i) / (float)(FFT_POINT - 1)));
-			}
-			break;
-		case FFT_WIN_HAMMING:
-			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = 0.54 - 0.46 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1));
-			}
-			break;
-		case FFT_WIN_BLACKMAN:
-			a0 = 0.42659;
-			a1 = 0.49656;
-			a2 = 0.076849;
-			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1));
-			}
-			break;
-		case FFT_WIN_NUTTALL:
-			a0 = 0.355768;
-			a1 = 0.487396;
-			a2 = 0.144232;
-			a3 = 0.012604;
-			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1));
-			}
-			break;
-		case FFT_WIN_FLAT_TOP:
-			a0 = 1;
-			a1 = 1.93;
-			a2 = 1.29;
-			a3 = 0.388;
-			a4 = 0.028;
-			for (i = 0; i < FFT_POINT; i++){
-				pWin[ i ] = a0 - a1 * cos((2 * M_PI * i) / (float)(FFT_POINT - 1)) + a2 *  cos((4 * M_PI * i) / (float)(FFT_POINT - 1)) - a3 * cos((6 * M_PI * i) / (float)(FFT_POINT - 1)) + a4 * cos((8 * M_PI * i) / (float)(FFT_POINT - 1));
 			}
 			break;
 		case FFT_WIN_RECTANGLE:
